@@ -19,3 +19,15 @@ def fetch_jobs(query):
     except requests.RequestException:
 
         return None
+
+def extract_all_skills(projects):
+
+    result=set()
+
+    for project in projects:
+
+        for skill in project["skills"]:
+
+            result.add(skill["name"])
+
+    return sorted(result)

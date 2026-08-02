@@ -1,9 +1,11 @@
 import telebot
-
+from telebot.types import InlineKeyboardMarkup
+from telebot.types import InlineKeyboardButton
 from config import API_TOKEN
-from API.api import fetch_jobs
+from API.api import fetch_jobs, extract_all_skills
 from bot.formater import format_project
 from bot.user_data import *
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 bot = telebot.TeleBot(API_TOKEN)
 
@@ -26,6 +28,9 @@ def start(message):
 
 /settings
 
+/skills
+
+/reset
 کافی است نام مهارت را ارسال کنید.
 """
     )
@@ -67,8 +72,80 @@ def settings(message):
         message.chat.id,
         "حداقل بودجه موردنظر را وارد کنید."
     )
+@bot.message_handler(commands=["skills"])
+def skills(message):
+
+    data=fetch_jobs("")
+
+    projects=data["data"]["data"]
+
+    skills=extract_all_skills(projects)
+
+    keyboard=InlineKeyboardMarkup(row_width=2)
+
+    for skill in skills[:30]:
+
+        keyboard.add(
+
+            InlineKeyboardButton(
+
+                skill,
+
+                callback_data=f"skill:{skill}"
+
+            )
+
+        )
+
+    keyboard.add(
+
+        InlineKeyboardButton(
+
+            "✅ پایان انتخاب",
+
+            callback_data="finish"
+
+        )
+    )
+
+    bot.send_message(
+
+        message.chat.id,
+
+        "حداکثر سه مهارت را انتخاب کنید.",
+
+        reply_markup=keyboard
+    )
 
 
+
+@bot.message_handler(commands=["reset"])
+def reset(message):
+
+    reset_user(message.from_user.id)
+
+    bot.send_message(
+        message.chat.id,
+        """
+✅ تمام تنظیمات شما حذف شد.
+
+دوباره از ابتدا شروع کنید.
+
+ابتدا مهارت‌های خود را انتخاب کنید:
+
+/skills
+"""
+    )
+
+@bot.message_handler(func=lambda message: message.text == "🔄 شروع مجدد")
+def reset(message):
+
+    reset_user(message.from_user.id)
+
+    bot.send_message(
+        message.chat.id,
+        "✅ اطلاعات شما پاک شد.\nدوباره از /skills شروع کنید."
+    )
 @bot.message_handler(func=lambda message: True)
 def all_messages(message):
 
@@ -113,26 +190,32 @@ def all_messages(message):
     # ---------- Search ----------
 
     data = fetch_jobs(message.text)
-
-    if data is None:
-
-        bot.send_message(
-            message.chat.id,
-            "ارتباط با API برقرار نشد."
-        )
-
-        return
-
     projects = data["data"]["data"]
 
-    if not projects:
+    selected = get_skills(message.from_user.id)
+
+    for project in projects:
+
+        project_skills = [
+            skill["name"].lower()
+            for skill in project["skills"]
+        ]
+
+        # اگر کاربر Skill انتخاب کرده باشد
+        if selected:
+
+            if not any(
+                    skill.lower() in project_skills
+                    for skill in selected
+            ):
+                continue
 
         bot.send_message(
             message.chat.id,
-            "پروژه‌ای پیدا نشد."
+            format_project(project)
         )
 
-        return
+        #return
 
     min_budget = get_budget(message.from_user.id)
 
@@ -159,6 +242,69 @@ def all_messages(message):
             message.chat.id,
             "هیچ پروژه‌ای با بودجه موردنظر پیدا نشد."
         )
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
+    keyboard.add(
+        KeyboardButton("🔄 شروع مجدد")
+    )
+
+    bot.send_message(
+        message.chat.id,
+        "اگر می‌خواهید جستجوی جدیدی انجام دهید، روی دکمه زیر بزنید.",
+        reply_markup=keyboard
+    )
+@bot.callback_query_handler(func=lambda call:True)
+
+def callback(call):
+
+    user_id=call.from_user.id
+
+    create_user(user_id)
+
+    if call.data=="finish":
+
+        bot.edit_message_text(
+
+            f"""
+
+مهارت های انتخاب شده:
+
+{get_skills(user_id)}
+
+""",
+
+            call.message.chat.id,
+
+            call.message.message_id
+
+        )
+
+        return
+
+    if call.data.startswith("skill:"):
+
+        skill=call.data.split(":")[1]
+
+        if len(get_skills(user_id))>=3:
+
+            bot.answer_callback_query(
+
+                call.id,
+
+                "حداکثر سه مهارت"
+
+            )
+
+            return
+
+        add_skill(user_id,skill)
+
+        bot.answer_callback_query(
+
+            call.id,
+
+            f"{skill} اضافه شد."
+        )
 
 bot.infinity_polling()
+

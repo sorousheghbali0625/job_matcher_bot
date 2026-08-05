@@ -1,7 +1,7 @@
 import telebot
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
-from config import API_TOKEN
+from config.settings import API_TOKEN
 from API.api import fetch_jobs, extract_all_skills
 from bot.formater import format_project
 from bot.user_data import *

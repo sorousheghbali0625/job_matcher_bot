@@ -1,10 +1,19 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+API_TOKEN = os.getenv("API_TOKEN")
+
+API_URL = "https://www.karlancer.com/api/publics/search/projects"
+
+REQUEST_TIMEOUT = 10
 class Settings(BaseSettings):
     """
     Centralized configuration for the Freelance Hunter Bot.
     Pydantic automatically reads these from the .env file.
     """
+
     groq_api_key: str
     sqlite_db_path: str = "freelance_hunter.db"
     chroma_db_path: str = "./chroma_data"

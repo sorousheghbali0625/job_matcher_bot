@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6544a5dd-c5d8-45d6-89e7-0c133066e530" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/API/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/user_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot/user_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +63,11 @@
       <option name="presentableId" value="Default" />
       <updated>1785604189803</updated>
       <workItem from="1785604190862" duration="2352000" />
-      <workItem from="1785668449719" duration="7621000" />
+      <workItem from="1785668449719" duration="8362000" />
+      <workItem from="1785748078356" duration="2000" />
+      <workItem from="1785945521651" duration="38000" />
+      <workItem from="1785945577104" duration="230000" />
+      <workItem from="1785945821843" duration="5000" />
     </task>
     <servers />
   </component>
@@ -74,7 +78,7 @@
     <SUITE FILE_PATH="coverage/job_matcher_bot$parser.coverage" NAME="parser Coverage Results" MODIFIED="1785604492370" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/API" />
     <SUITE FILE_PATH="coverage/job_matcher_bot$formater.coverage" NAME="formater Coverage Results" MODIFIED="1785604501321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/bot" />
     <SUITE FILE_PATH="coverage/job_matcher_bot$config.coverage" NAME="config Coverage Results" MODIFIED="1785604681621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/job_matcher_bot$main.coverage" NAME="main Coverage Results" MODIFIED="1785675917881" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/job_matcher_bot$main.coverage" NAME="main Coverage Results" MODIFIED="1785676200465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/job_matcher_bot$user_data.coverage" NAME="user_data Coverage Results" MODIFIED="1785604506667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/bot" />
     <SUITE FILE_PATH="coverage/job_matcher_bot$api.coverage" NAME="api Coverage Results" MODIFIED="1785604484870" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/API" />
   </component>

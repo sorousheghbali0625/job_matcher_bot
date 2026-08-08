@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     Centralized configuration for the Freelance Hunter Bot.
     Pydantic automatically reads these from the .env file.
     """
-
+    api_token: str
     groq_api_key: str
     sqlite_db_path: str = "freelance_hunter.db"
     chroma_db_path: str = "./chroma_data"

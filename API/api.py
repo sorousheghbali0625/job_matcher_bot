@@ -1,5 +1,5 @@
 import requests
-from config import API_URL, REQUEST_TIMEOUT
+from config.settings import API_URL, REQUEST_TIMEOUT
 
 
 def fetch_jobs(query):
